@@ -624,9 +624,14 @@
       </div>
 
       <div class="form-card reveal">
-        <form id="lead-form" name="donation-lead" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
-          <input type="hidden" name="form-name" value="donation-lead">
-          <p hidden><label>Don't fill this out: <input name="bot-field"></label></p>
+        <!-- action is filled in from config.js at load; if the script that
+             handles submission ever fails, the browser still POSTs to
+             Formspree natively rather than reloading the page. -->
+        <form id="lead-form" name="donation-lead" method="POST" novalidate>
+          <!-- Formspree's honeypot: hidden from people, tempting to bots.
+               A submission that fills it is discarded server-side. -->
+          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true"
+                 style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
 
           <div class="field-row">
             <div class="field">

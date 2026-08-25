@@ -9,20 +9,36 @@ window.SITE_CONFIG = {
      1. WHERE THE DONATION-LEAD FORM SENDS ITS DATA
         לאן נשלחים הפרטים מטופס התרומה
 
-     Leave as null and the form falls back to opening the visitor's email
-     client with everything pre-filled — it works out of the box, but you
-     will not get a record of leads you can track.
+     The form is wired for Formspree. To switch it on:
 
-     To collect leads properly, pick ONE (each takes ~2 minutes, all free):
+       1. Go to formspree.io and sign up (free) with the troop's email.
+       2. Create a new form. Call it something like "תרומות – אתר".
+       3. Formspree shows you an endpoint like
+              https://formspree.io/f/mabcdefg
+          Copy the LAST PART only — the form ID, e.g. mabcdefg.
+       4. Paste it between the quotes below:
 
-       Formspree  → sign up at formspree.io, create a form, paste the URL:
-                    formEndpoint: "https://formspree.io/f/xxxxxxx"
-       Netlify    → deploy on Netlify; forms are picked up automatically
-                    (the markup already carries the netlify attributes).
-       Google     → use a Google Apps Script web-app URL.
+              formspreeId: "mabcdefg",
 
-     See README.md for step-by-step instructions.
+       5. Submit the form once yourself. Formspree emails the troop to
+          confirm the address — click the link in that email, or nothing
+          will come through.
+
+     That is all. Leads then arrive by email and are listed in the
+     Formspree dashboard.
+
+     NOTE ON THE FREE PLAN: it allows 50 submissions per month. If the
+     campaign takes off you will hit that ceiling and further leads are
+     rejected, so keep an eye on the dashboard and upgrade if needed.
+
+     Until an ID is set, the form falls back to opening the visitor's
+     email client with everything pre-filled. That works, but gives you
+     no record you can track.
      -------------------------------------------------------------------- */
+  formspreeId: null,
+
+  /* Only needed for a different service (Netlify, Google Apps Script, your
+     own endpoint). A full URL here overrides formspreeId above. */
   formEndpoint: null,
 
   /* --------------------------------------------------------------------

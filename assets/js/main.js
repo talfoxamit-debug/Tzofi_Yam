@@ -169,6 +169,30 @@
   var form = $("#lead-form");
   var status = $("#form-status");
 
+  /* Accepts either a bare Formspree form ID ("mabcdefg") or a full URL, so it
+     still works whichever of the two the troop pastes into config.js.
+     Returns null while the placeholder is unset, which keeps the mailto
+     fallback in play. */
+  function resolveEndpoint() {
+    var raw = CFG.formEndpoint || CFG.formspreeId || "";
+    if (typeof raw !== "string") return null;
+    raw = raw.trim();
+    if (!raw) return null;
+    if (/^https?:\/\//i.test(raw)) return raw;
+    if (/^[A-Za-z0-9_-]{6,}$/.test(raw) && !/^x+$/i.test(raw)) {
+      return "https://formspree.io/f/" + raw;
+    }
+    return null;
+  }
+
+  var ENDPOINT = resolveEndpoint();
+
+  /* Point the form at Formspree natively too. If the submit handler below
+     never binds — a script error, an old browser — the browser's own POST
+     still reaches Formspree and the visitor lands on its thank-you page,
+     rather than silently reloading and losing the lead. */
+  if (form && ENDPOINT) form.setAttribute("action", ENDPOINT);
+
   var COPY = {
     sending: { he: "שולחים…", en: "Sending…" },
     ok: {
@@ -252,6 +276,13 @@
       data.lang = currentLang();
       data.page = location.href;
 
+      /* Formspree reads these two: _subject titles the notification email,
+         _replyto makes "Reply" in the troop's inbox go to the donor. */
+      var isEn = currentLang() === "en";
+      data._subject = (isEn ? "Donation enquiry from the website" : "פנייה לתרומה מהאתר") +
+        (data.name ? " — " + data.name : "");
+      if (data.email) data._replyto = data.email;
+
       var submitBtn = $("#f-submit");
       var originalHTML = submitBtn ? submitBtn.innerHTML : "";
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = t("sending"); }
@@ -261,24 +292,38 @@
       };
 
       // No endpoint configured yet → hand the lead to the visitor's mail client.
-      if (!CFG.formEndpoint) {
+      if (!ENDPOINT) {
         window.location.href = composeMailto(data);
         show("ok", t("mail") + mailLink());
         restore();
         return;
       }
 
-      fetch(CFG.formEndpoint, {
+      // Formspree needs the Accept header, or it replies with its HTML
+      // thank-you page instead of JSON.
+      fetch(ENDPOINT, {
         method: "POST",
         headers: { "Accept": "application/json", "Content-Type": "application/json" },
         body: JSON.stringify(data)
       }).then(function (res) {
-        if (!res.ok) throw new Error("HTTP " + res.status);
+        if (res.ok) return;
+        // Formspree reports problems as {"errors":[{"message":"…"}]} —
+        // surface the text so a wrong form ID is obvious, not mysterious.
+        return res.json().catch(function () { return null; }).then(function (body) {
+          var msg = body && body.errors && body.errors.length
+            ? body.errors.map(function (e) { return e.message; }).join(", ")
+            : "HTTP " + res.status;
+          throw new Error(msg);
+        });
+      }).then(function () {
         show("ok", t("ok"));
         form.reset();
         $$("[data-tier]").forEach(function (tt) { tt.setAttribute("aria-pressed", "false"); });
-      }).catch(function () {
-        show("err", t("err") + mailLink());
+      }).catch(function (err) {
+        var detail = err && err.message
+          ? ' <span style="opacity:.7">(' + String(err.message).slice(0, 120) + ")</span>"
+          : "";
+        show("err", t("err") + mailLink() + detail);
       }).finally(restore);
     });
   }

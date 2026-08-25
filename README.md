@@ -38,45 +38,72 @@ If you change the Hebrew, change the English next to it.
 
 ## Collecting donation leads
 
-**Out of the box, with nothing configured**, the form opens the visitor's email
-client with every field pre-filled and addressed to the troop. That works
-immediately — but you get no record you can track, and it fails for people
-without a mail client set up.
+The form is wired for **Formspree**. It needs one thing from you: a form ID.
 
-**To collect leads properly**, pick one option below and set `formEndpoint` in
-`assets/js/config.js`.
+### Turning it on (about two minutes)
 
-### Option A — Formspree (easiest, ~2 minutes, free tier)
+1. Go to **[formspree.io](https://formspree.io)** and sign up with the troop's
+   email address — `yam.bat-yam@zofim.org.il`. The free plan is enough to start.
+2. Create a new form. Name it something you'll recognise, e.g. *תרומות – אתר*.
+3. Formspree shows you an endpoint that looks like
+   `https://formspree.io/f/mabcdefg`. **Copy the last part** — the form ID.
+4. Open [`assets/js/config.js`](assets/js/config.js) and paste it in:
 
-1. Sign up at [formspree.io](https://formspree.io) and create a new form.
-2. Copy the endpoint URL it gives you.
-3. In `assets/js/config.js`:
    ```js
-   formEndpoint: "https://formspree.io/f/xxxxxxx",
+   formspreeId: "mabcdefg",
    ```
 
-Submissions arrive by email and are listed in the Formspree dashboard.
+5. Commit and deploy, then **send yourself one test submission through the live
+   site**. Formspree emails the troop asking to confirm the address — click that
+   link. Until you do, submissions are accepted but nothing is delivered.
 
-### Option B — Netlify Forms (free, if you host on Netlify)
+Pasting the whole `https://formspree.io/f/mabcdefg` URL instead of just the ID
+also works — the code accepts either.
 
-Deploy the folder to Netlify and you're done — the form markup already carries
-`data-netlify="true"` and a honeypot field. Leave `formEndpoint` as `null` and
-**remove the `e.preventDefault()` path** by setting:
+### What the troop receives
 
-```js
-formEndpoint: "/",   // Netlify intercepts the POST
-```
+Each lead arrives as an email titled *"פנייה לתרומה מהאתר — דנה כהן"*, and
+because the donor's address is set as reply-to, hitting **Reply** in the inbox
+answers the donor directly. Every submission also appears in the Formspree
+dashboard, where it can be exported to CSV.
 
-Leads then appear under *Site → Forms* in the Netlify dashboard.
+The payload carries: `name, email, phone, org, type, help, amount, message,
+consent, lang, page`. The `lang` field tells you whether the enquiry came from
+the Hebrew or English version — useful for knowing which language to answer in.
 
-### Option C — Google Sheets (free, keeps everything in your Drive)
+### Watch the free-plan ceiling
 
-Create a Google Apps Script web app that appends `e.postData` to a sheet,
-deploy it with access set to "Anyone", and paste the `/exec` URL into
-`formEndpoint`.
+The free plan allows **50 submissions per month**. For a campaign that gets
+shared around, that ceiling is reachable — and once it's hit, further leads are
+rejected rather than queued. Keep an eye on the dashboard during any push, and
+upgrade before a big send rather than after.
 
-Whatever you pick, the form posts JSON with these keys:
-`name, email, phone, org, type, help, amount, message, consent, lang, page`.
+### Spam
+
+The form includes Formspree's `_gotcha` honeypot — a field hidden from people
+but visible to bots; anything that fills it is discarded server-side. If spam
+still gets through, turn on reCAPTCHA in the Formspree dashboard.
+
+### If something goes wrong
+
+The form reports Formspree's own error text on screen, so problems are
+diagnosable rather than mysterious:
+
+| What you see | What it means |
+| --- | --- |
+| `(Form not found)` | The form ID is wrong or the form was deleted |
+| `(Form is disabled)` | Hit the monthly limit, or the form was paused |
+| `(HTTP 429)` | Too many submissions too quickly |
+| Email client opens instead | No `formspreeId` set — step 4 wasn't saved or deployed |
+
+Whatever the failure, the visitor is always offered the troop's email address as
+a fallback, so a lead is never simply lost.
+
+### Using something else instead
+
+Set `formEndpoint` to a full URL and it takes precedence over `formspreeId`.
+Anything that accepts a JSON `POST` works — a Google Apps Script web app, Getform,
+Basin, or your own server.
 
 ---
 
