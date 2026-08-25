@@ -98,22 +98,32 @@
   /* ---------------------------------------------------------------------
      Reveal on scroll
      --------------------------------------------------------------------- */
-  var revealables = $$(".reveal");
-  if (reduceMotion || !("IntersectionObserver" in window)) {
-    revealables.forEach(function (el) { el.classList.add("is-in"); });
-  } else {
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-in");
-        io.unobserve(entry.target);
-      });
-    }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
-    revealables.forEach(function (el, i) {
+  var revealObserver = null;
+
+  /* Anything built later — testimonials, for one — must be registered too,
+     or it keeps the opacity:0 that .reveal starts with and never appears. */
+  function registerReveals(els) {
+    if (!els.length) return;
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      els.forEach(function (el) { el.classList.add("is-in"); });
+      return;
+    }
+    if (!revealObserver) {
+      revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in");
+          revealObserver.unobserve(entry.target);
+        });
+      }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
+    }
+    els.forEach(function (el, i) {
       el.style.transitionDelay = (Math.min(i % 4, 3) * 70) + "ms";
-      io.observe(el);
+      revealObserver.observe(el);
     });
   }
+
+  registerReveals($$(".reveal"));
 
   /* ---------------------------------------------------------------------
      Budget bars — each need is drawn proportional to the largest item,
@@ -314,7 +324,9 @@
      so an unverified claim can never reach the page. */
   $$("[data-requires]").forEach(function (el) {
     var v = cfgValue(el.getAttribute("data-requires"));
-    if (v === undefined || v === null || v === false || v === "") el.remove();
+    var empty = v === undefined || v === null || v === false || v === "" ||
+                (Array.isArray(v) && v.length === 0);
+    if (empty) el.remove();
   });
 
   $$("[data-cfg]").forEach(function (el) {
@@ -343,6 +355,54 @@
       a.href = "https://wa.me/" + CFG.whatsapp;
     });
   }
+
+  /* ---------------------------------------------------------------------
+     Testimonials. Built from the config list so the troop can add quotes
+     without touching markup. Written with textContent throughout — quotes
+     are prose and may contain characters that would break as HTML.
+     --------------------------------------------------------------------- */
+  (function testimonials() {
+    var mount = $("#testimonials-mount");
+    if (!mount) return;                        // removed by data-requires
+    var list = Array.isArray(CFG.testimonials) ? CFG.testimonials : [];
+    if (!list.length) { var sec = $("#voices"); if (sec) sec.remove(); return; }
+
+    list.forEach(function (t) {
+      if (!t || !t.quote) return;
+      var card = document.createElement("figure");
+      card.className = "voice reveal";
+
+      var q = document.createElement("blockquote");
+      // A missing English translation falls back to the Hebrew rather than
+      // leaving an English reader with an empty card.
+      var he = document.createElement("span");
+      he.lang = "he";
+      he.dir = "auto";
+      he.textContent = t.quote.he || t.quote.en || "";
+      var en = document.createElement("span");
+      en.lang = "en";
+      en.dir = "auto";
+      en.textContent = t.quote.en || t.quote.he || "";
+      q.append(he, en);
+
+      var cap = document.createElement("figcaption");
+      var nm = document.createElement("b");
+      nm.textContent = t.name || "";
+      cap.append(nm);
+      if (t.role) {
+        var rHe = document.createElement("span");
+        rHe.lang = "he";
+        rHe.textContent = t.role.he || t.role.en || "";
+        var rEn = document.createElement("span");
+        rEn.lang = "en";
+        rEn.textContent = t.role.en || t.role.he || "";
+        cap.append(rHe, rEn);
+      }
+      card.append(q, cap);
+      mount.append(card);
+    });
+    registerReveals($$(".voice", mount));
+  })();
 
   /* ---------------------------------------------------------------------
      Video — a click-to-play facade rather than a YouTube iframe on load.

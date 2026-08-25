@@ -12,8 +12,14 @@ content has to come from the movement. `docs/materials-request.md` is a
 ready-to-send Hebrew message asking for exactly what's missing — founding year,
 testimonials, tax-receipt details, safety credentials, letters of support.
 
-- [ ] Send the message in `docs/materials-request.md`
-- [ ] Fill in what comes back (see items 2–4 below)
+`docs/materials-request.md` now holds **two** messages — one for the troop
+(founding year, testimonials, photos, safety, numbers) and one for whoever
+handles money and receipts at the movement (the tax questions in item 3).
+
+- [ ] Send message 1 to the troop
+- [ ] Send message 2 to the finance/receipts contact
+- [ ] Paste testimonials into the `testimonials` list in `assets/js/config.js`
+      as they arrive — the section appears by itself once there's at least one
 
 ---
 

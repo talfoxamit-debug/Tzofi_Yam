@@ -108,6 +108,28 @@ window.SITE_CONFIG = {
     usEin: null
   },
 
+  /* --------------------------------------------------------------------
+     TESTIMONIALS  ·  המלצות
+
+     The whole section stays hidden while this list is empty. Add entries as
+     they come in — no other file needs touching.
+
+     Each entry:
+       quote : what they said. "en" is optional; if you leave it out, the
+               Hebrew is shown to English readers too.
+       name  : full name. Only publish with the person's permission.
+       role  : who they are — "אמא של חניך", "בוגר מחזור 2015", "מדריך".
+
+     Example (delete the // to switch it on):
+
+       { quote: { he: "השבט נתן לבן שלי ביטחון שלא ראיתי בשום מקום אחר.",
+                  en: "The troop gave my son a confidence I hadn't seen anywhere else." },
+         name: "רונית לוי",
+         role: { he: "אמא של חניך", en: "Parent" } },
+     -------------------------------------------------------------------- */
+  testimonials: [
+  ],
+
   /* Optional link to the PDF deck, if you want the site to carry it too.
      Drop the file in and point at it, e.g. "assets/tzofei-yam-deck.pdf". */
   deckUrl: null,

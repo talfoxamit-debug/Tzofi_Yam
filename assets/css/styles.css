@@ -981,6 +981,55 @@ html[dir="rtl"] .video__play svg { margin-inline-start: 0; margin-inline-end: 4p
   background: linear-gradient(to bottom, rgba(6, 26, 48, .82), rgba(6, 26, 48, .62) 50%, rgba(6, 26, 48, .86));
 }
 
+/* --- Testimonials -------------------------------------------------------- */
+.voices {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(1rem, 2.2vw, 1.6rem);
+}
+.voice {
+  margin: 0;
+  padding: clamp(1.4rem, 2.6vw, 1.9rem);
+  background: var(--surface);
+  border: 1px solid rgba(11, 37, 69, .08);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+.voice blockquote {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.65;
+  color: var(--ink);
+  position: relative;
+  padding-block-start: 1.9rem;
+}
+.voice blockquote::before {
+  content: "\201D";
+  position: absolute;
+  inset-block-start: -.35em;
+  inset-inline-start: 0;
+  font-family: var(--font-display);
+  font-size: 3.4rem;
+  line-height: 1;
+  color: var(--teal-400);
+}
+.voice figcaption {
+  margin-block-start: auto;
+  padding-block-start: .9rem;
+  border-block-start: 1px solid rgba(11, 37, 69, .1);
+  font-size: .9rem;
+  color: var(--ink-faint);
+}
+.voice figcaption b {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--navy-800);
+}
+
 /* --- Quote -------------------------------------------------------------- */
 .quote {
   max-inline-size: 46rem;
