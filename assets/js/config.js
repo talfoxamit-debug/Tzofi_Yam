@@ -64,6 +64,7 @@ window.SITE_CONFIG = {
 
   facebook:  "https://www.facebook.com/BatYamSeaScouts",
   instagram: "https://www.instagram.com/yam_bat_yam",
+  youtube:   "https://www.youtube.com/@yambatyam1",
 
   /* --------------------------------------------------------------------
      3. VIDEO  ·  סרטון
@@ -74,7 +75,7 @@ window.SITE_CONFIG = {
 
      While this is null the whole video section stays hidden.
      -------------------------------------------------------------------- */
-  youtubeId: null,
+  youtubeId: "Gcehy3RlX08",
 
   /* --------------------------------------------------------------------
      4. TRUST  ·  אמון

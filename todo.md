@@ -17,13 +17,11 @@ testimonials, tax-receipt details, safety credentials, letters of support.
 
 ---
 
-## 2. Paste the YouTube video ID
+## 2. ~~Paste the YouTube video ID~~  ·  DONE
 
-The video section is built and stays completely hidden until this is set.
-
-- [ ] In `assets/js/config.js`, set `youtubeId` to the ID from your URL:
-      `https://youtube.com/watch?v=`**`dQw4w9WgXcQ`** ← just that part
-      (a full URL works too)
+- [x] Set to `Gcehy3RlX08` — *"צופי ים בת ים"* from the troop's own channel
+      [@yambatyam1](https://www.youtube.com/@yambatyam1). Verified public and
+      embeddable. The channel is also linked from the contact section now.
 
 ---
 
