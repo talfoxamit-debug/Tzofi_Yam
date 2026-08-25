@@ -378,6 +378,98 @@ html[dir="ltr"] .hero__scrim {
 }
 @keyframes bob { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 7px); } }
 
+/* --- Personalised greeting ---------------------------------------------- */
+.greeting {
+  display: inline-block;
+  margin-block-end: 1.1rem;
+  padding: .5rem 1.05rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .14);
+  border: 1px solid rgba(255, 255, 255, .3);
+  backdrop-filter: blur(8px);
+  font-size: .95rem;
+  color: rgba(255, 255, 255, .95);
+}
+.greeting b { font-weight: 700; color: var(--orange-400); }
+
+/* --- Video ---------------------------------------------------------------
+   A click-to-play facade: the thumbnail is a few KB, the real YouTube
+   iframe is only inserted once someone presses play. */
+.video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--navy-900);
+  box-shadow: var(--shadow-lg);
+}
+.video img,
+.video iframe {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  border: 0;
+}
+.video__play {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+  inline-size: 84px;
+  block-size: 84px;
+  border: 0;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  color: #fff;
+  background: rgba(244, 98, 44, .94);
+  box-shadow: 0 10px 34px rgba(6, 26, 48, .45);
+  transition: transform .2s ease, background-color .2s ease;
+}
+html[dir="rtl"] .video__play { transform: translate(50%, -50%); }
+.video__play:hover { background: var(--orange-600); transform: translate(-50%, -50%) scale(1.07); }
+html[dir="rtl"] .video__play:hover { transform: translate(50%, -50%) scale(1.07); }
+.video__play svg { margin-inline-start: 4px; }
+html[dir="rtl"] .video__play svg { margin-inline-start: 0; margin-inline-end: 4px; }
+
+/* --- Small print inside a card ------------------------------------------ */
+.card__note {
+  margin-block-start: .7rem;
+  padding-block-start: .7rem;
+  border-block-start: 1px solid rgba(11, 37, 69, .1);
+  font-size: .89rem;
+  color: var(--ink-faint);
+}
+.card__note b { color: var(--navy-700); }
+
+/* --- Visit checklist ----------------------------------------------------- */
+.visit-list {
+  list-style: none;
+  padding: 0;
+  margin-block-start: 1.6rem;
+  display: grid;
+  gap: .85rem;
+}
+.visit-list li {
+  position: relative;
+  padding-inline-start: 1.9rem;
+  color: rgba(255, 255, 255, .88);
+  line-height: 1.6;
+}
+.visit-list li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: .62em;
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: var(--orange-400);
+}
+
 /* --- Stat strip --------------------------------------------------------- */
 .stats {
   background: var(--navy-900);
@@ -704,6 +796,9 @@ html[dir="ltr"] .hero__scrim {
   line-height: 1;
 }
 .tier__what { font-size: .92rem; color: var(--ink-soft); line-height: 1.5; }
+.tier--static { cursor: default; }
+.tier--static:hover { transform: none; box-shadow: none; border-color: rgba(11, 37, 69, .1); }
+
 .tier__flag {
   position: absolute;
   inset-block-start: -10px;
@@ -719,6 +814,19 @@ html[dir="ltr"] .hero__scrim {
 }
 
 /* --- Form --------------------------------------------------------------- */
+
+/* Honeypot. Hidden from people, visible to bots. Deliberately NOT offset by
+   -9999px: in RTL a far-negative offset extends the scrollable width and the
+   whole page scrolls sideways. Clipping in place has no layout effect at all. */
+.hp {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
 .form-panel {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -928,26 +1036,6 @@ html[dir="ltr"] .hero__scrim {
 .footer a { color: rgba(255, 255, 255, .8); }
 .footer .footer__meta { margin-inline-start: auto; display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; }
 
-/* --- Sticky mobile donate bar ------------------------------------------ */
-.donate-bar {
-  position: fixed;
-  inset-block-end: 0;
-  inset-inline: 0;
-  z-index: 90;
-  padding: .7rem var(--gutter) calc(.7rem + env(safe-area-inset-bottom));
-  background: rgba(250, 246, 239, .94);
-  backdrop-filter: saturate(180%) blur(12px);
-  border-block-start: 1px solid rgba(11, 37, 69, .1);
-  display: none;
-  gap: .7rem;
-  align-items: center;
-  transform: translateY(110%);
-  transition: transform .3s ease;
-}
-.donate-bar.is-visible { transform: translateY(0); }
-.donate-bar p { font-size: .84rem; line-height: 1.35; color: var(--ink-soft); }
-.donate-bar .btn { margin-inline-start: auto; flex: none; }
-
 /* --- Wave dividers ------------------------------------------------------ */
 .wave { display: block; inline-size: 100%; block-size: auto; }
 .wave--top { margin-block-end: -1px; }
@@ -1006,8 +1094,6 @@ html[dir="ltr"] .hero__scrim {
 
 @media (max-width: 900px) {
   :root { --header-h: 60px; }
-  .donate-bar { display: flex; }
-  body { padding-block-end: 68px; }
   .challenge:nth-child(even) .challenge__media { order: 0; }
   /* Hide only the sub-line, not the bilingual spans inside the name. */
   .brand-text > span { display: none; }
@@ -1028,14 +1114,12 @@ html[dir="ltr"] .hero__scrim {
 @media (max-width: 520px) {
   .hero { min-block-size: 88svh; }
   .stats__grid { grid-template-columns: repeat(2, 1fr); }
-  .donate-bar p { display: none; }
-  .donate-bar .btn { margin-inline: 0; inline-size: 100%; }
   .img-duo { grid-template-columns: 1fr; }
   .img-duo .figure:first-child { margin-block-start: 0; }
 }
 
 @media print {
-  .header, .donate-bar, .hero__scroll, .nav { display: none !important; }
+  .header, .hero__scroll, .nav { display: none !important; }
   .reveal { opacity: 1; transform: none; }
 }
 

@@ -73,7 +73,8 @@
       <a href="#fleet"><span lang="he">הצי</span><span lang="en">Our fleet</span></a>
       <a href="#challenges"><span lang="he">האתגרים</span><span lang="en">Challenges</span></a>
       <a href="#needs"><span lang="he">מה דרוש</span><span lang="en">What we need</span></a>
-      <a href="#contact"><span lang="he">צרו קשר</span><span lang="en">Contact</span></a>
+      <a href="#trust"><span lang="he">שקיפות</span><span lang="en">Transparency</span></a>
+      <a href="#visit"><span lang="he">בואו לבקר</span><span lang="en">Visit</span></a>
     </nav>
 
     <div class="header-actions">
@@ -81,8 +82,8 @@
         <button type="button" data-lang-btn="he" aria-pressed="true">עב</button>
         <button type="button" data-lang-btn="en" aria-pressed="false">EN</button>
       </div>
-      <a class="btn btn--sm" href="#give">
-        <span lang="he">תרמו</span><span lang="en">Give</span>
+      <a class="btn btn--sm" href="#visit">
+        <span lang="he">בואו לראות</span><span lang="en">Come see us</span>
       </a>
       <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav"
               aria-label="תפריט" data-en-attr="aria-label: Menu">
@@ -107,6 +108,10 @@
   <div class="hero__scrim"></div>
 
   <div class="wrap hero__inner">
+    <p class="greeting" id="greeting" hidden>
+      <span lang="he"><b data-greet-name></b> — הנה הסקירה שדיברנו עליה.</span>
+      <span lang="en"><b data-greet-name></b> — here's the overview we talked about.</span>
+    </p>
     <p class="eyebrow">
       <span lang="he">שבט הסלע · תנועת הצופים העבריים בישראל</span>
       <span lang="en">Sela Troop · Hebrew Scouts Movement in Israel</span>
@@ -120,8 +125,8 @@
       <span lang="en">The Sea Scouts of Bat Yam — maritime education for children in grades 5 through 12. Sailing, leadership, and a community waiting for them after the last school bell.</span>
     </p>
     <div class="hero__cta">
-      <a class="btn" href="#give">
-        <span lang="he">אני רוצה לתרום</span><span lang="en">I want to help</span>
+      <a class="btn" href="#visit">
+        <span lang="he">בואו לראות אותנו</span><span lang="en">Come and see us</span>
         <svg class="arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
       </a>
       <a class="btn btn--on-dark" href="#about">
@@ -325,6 +330,21 @@
         </figure>
       </div>
     </div>
+  </div>
+</section>
+
+<!-- ====================== VIDEO ====================== -->
+<section class="section section--sand" id="video" data-requires="youtubeId">
+  <div class="wrap">
+    <div class="section-head reveal" style="max-width:58ch">
+      <p class="eyebrow"><span lang="he">בוידאו</span><span lang="en">On video</span></p>
+      <h2><span lang="he">שתי דקות על החוף</span><span lang="en">Two minutes on the beach</span></h2>
+      <p class="lede">
+        <span lang="he">קשה להסביר במילים איך נראית קבוצה של עשרה ילדים שדוחפת סירה למים. אז הנה זה.</span>
+        <span lang="en">It's hard to put into words what ten children pushing a boat into the sea actually looks like. So here it is.</span>
+      </p>
+    </div>
+    <div class="video reveal" id="video-mount"></div>
   </div>
 </section>
 
@@ -559,58 +579,115 @@
   </div>
 </section>
 
-<!-- ====================== GIVE ====================== -->
+<!-- ====================== TRUST ====================== -->
+<section class="section" id="trust">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow"><span lang="he">שקיפות</span><span lang="en">Transparency</span></p>
+      <h2><span lang="he">מי עומד מאחורי זה</span><span lang="en">Who stands behind this</span></h2>
+      <p class="lede">
+        <span lang="he">אם אתם שוקלים לתרום, מגיעות לכם התשובות האלה לפני שתשאלו אותן.</span>
+        <span lang="en">If you're considering a gift, you deserve these answers before you have to ask for them.</span>
+      </p>
+    </div>
+
+    <div class="card-grid">
+      <article class="card reveal">
+        <div class="card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 3 7.5v5c0 4.7 3.8 8.4 9 9.5 5.2-1.1 9-4.8 9-9.5v-5z"/><path d="m9 12 2 2 4-4"/></svg>
+        </div>
+        <h3><span lang="he">לא ארגון חדש</span><span lang="en">Not a new organisation</span></h3>
+        <p>
+          <span lang="he">אנחנו שבט בתנועת הצופים העבריים בישראל — התנועה הוותיקה בארץ, שפועלת מאז 1919. אנחנו לא עמותה שנפתחה כדי לגייס כסף.</span>
+          <span lang="en">We are a troop within the Hebrew Scouts Movement in Israel — the country's oldest youth movement, running since 1919. We are not an organisation created in order to raise money.</span>
+        </p>
+        <p class="card__note" data-requires="trust.foundedYear">
+          <span lang="he">השבט פועל בבת ים מאז <b data-cfg="trust.foundedYear" data-cfg-text></b>.</span>
+          <span lang="en">The troop has been running in Bat Yam since <b data-cfg="trust.foundedYear" data-cfg-text></b>.</span>
+        </p>
+      </article>
+
+      <article class="card reveal">
+        <div class="card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10h18M3 10V7l9-4 9 4v3M5 10v8m4-8v8m6-8v8m4-8v8M3 21h18"/></svg>
+        </div>
+        <h3><span lang="he">הכסף לא עובר דרכנו</span><span lang="en">The money doesn't pass through us</span></h3>
+        <p>
+          <span lang="he">התרומות מנוהלות בספרי תנועת הצופים, לא בחשבון פרטי של מישהו בשבט. יש פיקוח וביקורת של התנועה על כל שקל.</span>
+          <span lang="en">Donations are handled in the Hebrew Scouts Movement's own books, not in anyone's private account at the troop. Every shekel sits under the movement's oversight and audit.</span>
+        </p>
+      </article>
+
+      <article class="card reveal" data-requires="trust.receiptsIsrael">
+        <div class="card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h9l5 5v15l-3-2-3 2-3-2-3 2-2-1.3z"/><path d="M9 8h5M9 12h7M9 16h4"/></svg>
+        </div>
+        <h3><span lang="he">קבלה וזיכוי מס</span><span lang="en">Receipts &amp; tax relief</span></h3>
+        <p>
+          <span lang="he">תורמים מישראל מקבלים קבלה רשמית דרך התנועה הארצית.</span>
+          <span lang="en">Donors in Israel receive an official receipt issued through the national movement.</span>
+        </p>
+        <p class="card__note" data-requires="trust.section46">
+          <span lang="he">כולל אישור לפי סעיף 46 לפקודת מס הכנסה.</span>
+          <span lang="en">Including Section 46 approval under the Israeli Income Tax Ordinance.</span>
+        </p>
+        <p class="card__note" data-requires="trust.receiptsUSA">
+          <span lang="he">תורמים מארה"ב יכולים לתרום דרך גוף 501(c)(3) ולקבל זיכוי מס אמריקאי. כתבו לנו ונשלח את הפרטים המדויקים.</span>
+          <span lang="en">Donors in the USA can give through a 501(c)(3) and receive a US tax deduction. Write to us and we'll send the exact details.</span>
+        </p>
+      </article>
+
+      <article class="card card--accent reveal">
+        <div class="card__icon" aria-hidden="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 0-5 5v3h10V7a5 5 0 0 0-5-5z"/><path d="M4 10h16v6a6 6 0 0 1-6 6h-4a6 6 0 0 1-6-6z"/></svg>
+        </div>
+        <h3><span lang="he">בטיחות, לפני הכול</span><span lang="en">Safety, before anything</span></h3>
+        <p>
+          <span lang="he">חגורות הצלה בכל יציאה, סירת ביטחון שמלווה את ההפלגות, ומדריכים שעברו קורס מפקדי ספינות ומחזיקים ברישיון שיט. אף חניך לא נמצא במים לבד.</span>
+          <span lang="en">Life jackets on every outing, a safety boat shadowing the sailing, and instructors who have completed the Ship Commanders Course and hold a sailing licence. No participant is ever out there alone.</span>
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ====================== WHAT A GIFT DOES ====================== -->
 <section class="section section--navy" id="give">
   <div class="wrap">
     <div class="section-head reveal" style="max-width:64ch">
-      <p class="eyebrow"><span lang="he">התרומה שלכם</span><span lang="en">Your gift</span></p>
-      <h2><span lang="he">בחרו סכום — או ספרו לנו מה בא לכם לתרום</span><span lang="en">Pick an amount — or tell us what you'd like to give</span></h2>
+      <p class="eyebrow"><span lang="he">מה תרומה עושה כאן</span><span lang="en">What a gift does here</span></p>
+      <h2><span lang="he">המספרים שמאחורי הבקשה</span><span lang="en">The numbers behind the ask</span></h2>
       <p class="lede">
-        <span lang="he">השאירו פרטים ונחזור אליכם עם כל האפשרויות: העברה, תרומת ציוד או סירה, חסות של חברה, או יום התנדבות. אנחנו לא גובים כלום דרך האתר — רק פותחים שיחה.</span>
-        <span lang="en">Leave your details and we'll come back to you with all the options: a transfer, donated equipment or a boat, corporate sponsorship, or a volunteering day. Nothing is charged through this website — we're just starting a conversation.</span>
+        <span lang="he">אין באתר הזה כפתור תשלום ואנחנו לא גובים דרכו כלום. הוא קיים כדי שתדעו מי אנחנו לפני שמדברים. אם זה מדבר אליכם — נשמח לשיחה, או פשוט שתבואו לראות.</span>
+        <span lang="en">There is no payment button on this page and nothing is collected through it. It exists so you know who we are before we talk. If it speaks to you — we'd welcome a conversation, or simply a visit.</span>
       </p>
     </div>
 
     <div class="tiers reveal" style="margin-block-end:clamp(2rem,4vw,3rem)">
-      <button type="button" class="tier" data-tier="180" aria-pressed="false">
+      <div class="tier tier--static">
         <span class="tier__amount"><span class="ltr">180 ₪</span></span>
         <span class="tier__what"><span lang="he">לקרן הציוד של השבט. כל סכום נכנס ישירות פנימה.</span><span lang="en">Into the troop's equipment fund. Every gift goes straight in.</span></span>
-      </button>
-      <button type="button" class="tier" data-tier="1420" aria-pressed="false">
-        <span class="tier__flag"><span lang="he">הכי מבוקש</span><span lang="en">Most asked for</span></span>
+      </div>
+      <div class="tier tier--static">
         <span class="tier__amount"><span class="ltr">1,420 ₪</span></span>
         <span class="tier__what"><span lang="he">שנה שלמה בשבט לילד אחד שהמשפחה שלו לא יכולה לממן אותה.</span><span lang="en">A full year in the troop for one child whose family cannot fund it.</span></span>
-      </button>
-      <button type="button" class="tier" data-tier="7100" aria-pressed="false">
+      </div>
+      <div class="tier tier--static">
         <span class="tier__amount"><span class="ltr">7,100 ₪</span></span>
         <span class="tier__what"><span lang="he">חמישה חניכים לשנה שלמה — קבוצה קטנה, מדריך אחד, סירה אחת.</span><span lang="en">Five participants for a full year — one small group, one instructor, one boat.</span></span>
-      </button>
-      <button type="button" class="tier" data-tier="60000" aria-pressed="false">
+      </div>
+      <div class="tier tier--static">
         <span class="tier__amount"><span class="ltr">60,000 ₪</span></span>
         <span class="tier__what"><span lang="he">סט עגלות הורדה חדש לכל הצי. סוגר סעיף שלם בקמפיין.</span><span lang="en">A new set of launch carriages for the whole fleet. Closes an entire campaign line.</span></span>
-      </button>
+      </div>
     </div>
 
     <div class="form-panel">
       <div class="form-aside reveal">
-        <h3><span lang="he">מה קורה אחרי שתשלחו</span><span lang="en">What happens after you send</span></h3>
-        <ul>
-          <li>
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-            <span><span lang="he">אדם מהשבט — לא מוקד ולא בוט — חוזר אליכם, בדרך כלל תוך יום או יומיים.</span><span lang="en">Someone from the troop — not a call centre, not a bot — gets back to you, usually within a day or two.</span></span>
-          </li>
-          <li>
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-            <span><span lang="he">נסביר בדיוק לאן ילך הכסף, ונענה על כל שאלה לגבי קבלה וזיכוי מס.</span><span lang="en">We'll explain exactly where your gift goes, and answer any question about receipts and tax.</span></span>
-          </li>
-          <li>
-            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-            <span><span lang="he">ואם תרצו — תוזמנו לבוא לראות. חוף בת ים, יום שלישי אחר הצהריים.</span><span lang="en">And if you'd like — you're invited to come and see for yourself. Bat Yam beach, Tuesday afternoon.</span></span>
-          </li>
-        </ul>
-        <p style="font-size:.92rem;color:rgba(255,255,255,.66)">
-          <span lang="he">מעדיפים לדבר? אפשר בוואטסאפ או במייל, בלי למלא כלום.</span>
-          <span lang="en">Prefer to talk? WhatsApp or email us instead — no form needed.</span>
+        <h3><span lang="he">הדרך הכי פשוטה: פשוט לדבר</span><span lang="en">The simplest way: just talk to us</span></h3>
+        <p style="color:rgba(255,255,255,.84)">
+          <span lang="he">אין צורך למלא כלום. הרימו טלפון, שלחו הודעה בוואטסאפ או כתבו מייל — עונה אדם מהשבט, לא מוקד.</span>
+          <span lang="en">No form required. Call, send a WhatsApp message, or write an email — someone from the troop answers, not a call centre.</span>
         </p>
         <div style="display:flex;flex-wrap:wrap;gap:.6rem">
           <a class="btn btn--on-dark btn--sm" data-wa href="#">
@@ -620,7 +697,14 @@
           <a class="btn btn--on-dark btn--sm" data-cfg="email" data-cfg-href="mailto" href="#">
             <span lang="he">שלחו מייל</span><span lang="en">Email us</span>
           </a>
+          <a class="btn btn--on-dark btn--sm" data-requires="deckUrl" data-cfg="deckUrl" href="#" target="_blank" rel="noopener">
+            <span lang="he">המצגת המלאה (PDF)</span><span lang="en">Full deck (PDF)</span>
+          </a>
         </div>
+        <p style="font-size:.92rem;color:rgba(255,255,255,.6);margin-block-start:1.2rem">
+          <span lang="he">מעדיפים שנחזור אליכם? השאירו שם וטלפון —</span>
+          <span lang="en">Prefer that we call you? Leave a name and number —</span>
+        </p>
       </div>
 
       <div class="form-card reveal">
@@ -630,71 +714,37 @@
         <form id="lead-form" name="donation-lead" method="POST" novalidate>
           <!-- Formspree's honeypot: hidden from people, tempting to bots.
                A submission that fills it is discarded server-side. -->
-          <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true"
-                 style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
-
-          <div class="field-row">
-            <div class="field">
-              <label for="f-name"><span lang="he">שם מלא</span><span lang="en">Full name</span> <span class="req">*</span></label>
-              <input id="f-name" name="name" type="text" required autocomplete="name"
-                     placeholder="ישראל ישראלי" data-en-attr="placeholder: Jane Cohen">
-            </div>
-            <div class="field">
-              <label for="f-email"><span lang="he">אימייל</span><span lang="en">Email</span> <span class="req">*</span></label>
-              <input id="f-email" name="email" type="email" required autocomplete="email"
-                     placeholder="name@example.com" dir="ltr">
-            </div>
-          </div>
-
-          <div class="field-row">
-            <div class="field">
-              <label for="f-phone"><span lang="he">טלפון</span><span lang="en">Phone</span></label>
-              <input id="f-phone" name="phone" type="tel" autocomplete="tel" dir="ltr"
-                     placeholder="050-0000000" data-en-attr="placeholder: +972 50 000 0000">
-            </div>
-            <div class="field">
-              <label for="f-org"><span lang="he">ארגון או חברה</span><span lang="en">Organisation or company</span></label>
-              <input id="f-org" name="org" type="text" autocomplete="organization"
-                     placeholder="לא חובה" data-en-attr="placeholder: Optional">
-            </div>
-          </div>
-
-          <div class="field-row">
-            <div class="field">
-              <label for="f-type"><span lang="he">התרומה מגיעה מ־</span><span lang="en">Giving as</span></label>
-              <select id="f-type" name="type">
-                <option value="individual">אדם פרטי / Individual</option>
-                <option value="company">חברה / Company</option>
-                <option value="foundation">קרן / Foundation</option>
-                <option value="community">קהילה או קבוצה / Community or group</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="f-amount"><span lang="he">סכום משוער <span class="ltr">(₪)</span></span><span lang="en">Amount in mind <span class="ltr">(NIS)</span></span></label>
-              <input id="f-amount" name="amount" type="text" inputmode="numeric" dir="ltr"
-                     placeholder="1,420" >
-              <span class="field__hint"><span lang="he">לא מחייב — עוזר לנו להתכונן לשיחה.</span><span lang="en">Not binding — it just helps us prepare.</span></span>
-            </div>
-          </div>
-
-          <div class="checks">
-            <span class="legend"><span lang="he">אשמח לעזור ב־</span><span lang="en">I'd like to help with</span></span>
-            <label class="check"><input type="checkbox" name="help" value="money"><span><span lang="he">תרומה כספית</span><span lang="en">A financial gift</span></span></label>
-            <label class="check"><input type="checkbox" name="help" value="equipment"><span><span lang="he">תרומת ציוד, סירה או עגלה</span><span lang="en">Donating equipment, a boat or a carriage</span></span></label>
-            <label class="check"><input type="checkbox" name="help" value="services"><span><span lang="he">שירות מקצועי — נגרות, מנועים, פיברגלס, הובלה</span><span lang="en">Professional services — carpentry, engines, fibreglass, haulage</span></span></label>
-            <label class="check"><input type="checkbox" name="help" value="volunteer"><span><span lang="he">התנדבות או יום גיבוש של חברה בשבט</span><span lang="en">Volunteering, or a company team day at the troop</span></span></label>
+          <div class="hp" aria-hidden="true">
+            <label>Leave this empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off"></label>
           </div>
 
           <div class="field">
-            <label for="f-message"><span lang="he">משהו שתרצו לספר לנו</span><span lang="en">Anything you'd like to tell us</span></label>
-            <textarea id="f-message" name="message"
-                      placeholder="אשמח לשמוע עוד לפני שאחליט…"
-                      data-en-attr="placeholder: I'd like to hear more before deciding…"></textarea>
+            <label for="f-name"><span lang="he">שם</span><span lang="en">Name</span> <span class="req">*</span></label>
+            <input id="f-name" name="name" type="text" required autocomplete="name"
+                   placeholder="ישראל ישראלי" data-en-attr="placeholder: Jane Cohen">
+          </div>
+
+          <div class="field">
+            <label for="f-phone"><span lang="he">טלפון</span><span lang="en">Phone</span> <span class="req">*</span></label>
+            <input id="f-phone" name="phone" type="tel" required autocomplete="tel" dir="ltr"
+                   placeholder="050-0000000" data-en-attr="placeholder: +972 50 000 0000">
+          </div>
+
+          <div class="field">
+            <label for="f-email"><span lang="he">אימייל</span><span lang="en">Email</span></label>
+            <input id="f-email" name="email" type="email" autocomplete="email" dir="ltr"
+                   placeholder="לא חובה" data-en-attr="placeholder: Optional">
+          </div>
+
+          <div class="field">
+            <label for="f-message"><span lang="he">משהו שתרצו להוסיף</span><span lang="en">Anything you'd like to add</span></label>
+            <textarea id="f-message" name="message" rows="3"
+                      placeholder="לא חובה" data-en-attr="placeholder: Optional"></textarea>
           </div>
 
           <label class="check" style="margin-block-end:1.1rem">
             <input type="checkbox" id="f-consent" name="consent" value="yes">
-            <span><span lang="he">אני מאשר/ת שצופי ים בת ים יחזרו אליי בנוגע לפנייה הזו. הפרטים לא יועברו לאף גורם אחר.</span><span lang="en">I agree that the Sea Scouts of Bat Yam may contact me about this enquiry. My details will not be shared with anyone else.</span></span>
+            <span><span lang="he">אני מאשר/ת שצופי ים בת ים יחזרו אליי. הפרטים לא יועברו לאף גורם אחר.</span><span lang="en">I agree that the Sea Scouts of Bat Yam may contact me. My details will not be shared with anyone else.</span></span>
           </label>
 
           <button class="btn btn--block" id="f-submit" type="submit">
@@ -703,12 +753,6 @@
           </button>
 
           <div class="form-status" id="form-status"></div>
-
-          <div class="form-alt">
-            <span><span lang="he">או פשוט:</span><span lang="en">Or simply:</span></span>
-            <a class="chip" data-cfg="email" data-cfg-href="mailto" data-cfg-text href="#"></a>
-            <a class="chip" data-wa href="#">WhatsApp</a>
-          </div>
         </form>
       </div>
     </div>
@@ -765,6 +809,45 @@
       <span lang="en">By tenth grade they are no longer participants. They are at the helm, with seven children behind them who are counting on them.</span>
     </blockquote>
     <cite><span lang="he">שבט הסלע · צופי ים בת ים</span><span lang="en">Sela Troop · Sea Scouts of Bat Yam</span></cite>
+  </div>
+</section>
+
+<!-- ====================== VISIT ====================== -->
+<section class="section section--navy has-bg" id="visit">
+  <div class="bg-media">
+    <img src="assets/img/sunset-group.jpg" width="1084" height="813" loading="lazy" alt="">
+  </div>
+  <div class="wrap" style="max-width:60ch">
+    <div class="reveal">
+      <p class="eyebrow"><span lang="he">ההזמנה</span><span lang="en">The invitation</span></p>
+      <h2><span lang="he">אל תאמינו לנו על המילה. בואו לראות.</span><span lang="en">Don't take our word for it. Come and see.</span></h2>
+      <p class="lede" style="margin-block-start:1rem">
+        <span lang="he">הדבר הכי משכנע שיש לנו להציע הוא לא מסמך — זה יום שלישי אחר הצהריים על חוף בת ים. תיאמו איתנו ותבואו.</span>
+        <span lang="en">The most convincing thing we have to offer isn't a document — it's a Tuesday afternoon on the Bat Yam shore. Arrange a time with us and come down.</span>
+      </p>
+      <ul class="visit-list">
+        <li>
+          <span lang="he">תראו עשרה ילדים גוררים סירה 250 מטר על החול, ותבינו למה ביקשנו עגלות.</span>
+          <span lang="en">You'll watch ten children haul a boat 250 metres across sand, and understand why we asked for carriages.</span>
+        </li>
+        <li>
+          <span lang="he">תפגשו נער בן 16 שמפקד על צוות של שבעה, ותראו מה השבט עושה לאנשים.</span>
+          <span lang="en">You'll meet a sixteen-year-old commanding a crew of seven, and see what this place does to people.</span>
+        </li>
+        <li>
+          <span lang="he">ותוכלו להחזיק ביד את הציוד שאנחנו מבקשים להחליף.</span>
+          <span lang="en">And you'll be able to put your hands on the equipment we're asking to replace.</span>
+        </li>
+      </ul>
+      <div style="display:flex;flex-wrap:wrap;gap:.7rem;margin-block-start:2rem">
+        <a class="btn" data-wa href="#">
+          <span lang="he">תיאום ביקור בוואטסאפ</span><span lang="en">Arrange a visit on WhatsApp</span>
+        </a>
+        <a class="btn btn--on-dark" data-cfg="email" data-cfg-href="mailto" href="#">
+          <span lang="he">או במייל</span><span lang="en">Or by email</span>
+        </a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -844,17 +927,6 @@
     </span>
   </div>
 </footer>
-
-<!-- ====================== STICKY MOBILE CTA ====================== -->
-<div class="donate-bar">
-  <p>
-    <span lang="he"><strong>60 היום. 120 אפשריים.</strong></span>
-    <span lang="en"><strong>60 today. 120 possible.</strong></span>
-  </p>
-  <a class="btn btn--sm" href="#give">
-    <span lang="he">אני רוצה לתרום</span><span lang="en">I want to help</span>
-  </a>
-</div>
 
 <script src="assets/js/config.js"></script>
 <script src="assets/js/main.js"></script>

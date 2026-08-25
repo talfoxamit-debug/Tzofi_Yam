@@ -74,12 +74,10 @@
   var header = $(".header");
   var nav = $(".nav");
   var navToggle = $(".nav-toggle");
-  var donateBar = $(".donate-bar");
 
   function onScroll() {
     var y = window.scrollY;
     if (header) header.classList.toggle("is-stuck", y > 40);
-    if (donateBar) donateBar.classList.toggle("is-visible", y > 620);
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
@@ -142,26 +140,6 @@
       drawBars();
     }
   }
-
-  /* ---------------------------------------------------------------------
-     Giving levels — clicking a level fills in the amount on the form and
-     scrolls the visitor straight to it.
-     --------------------------------------------------------------------- */
-  var amountField = $("#f-amount");
-  $$("[data-tier]").forEach(function (tier) {
-    tier.addEventListener("click", function () {
-      $$("[data-tier]").forEach(function (t) { t.setAttribute("aria-pressed", "false"); });
-      tier.setAttribute("aria-pressed", "true");
-      if (amountField) {
-        amountField.value = tier.getAttribute("data-tier");
-        var form = $("#lead-form");
-        if (form) {
-          form.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
-          window.setTimeout(function () { var n = $("#f-name"); if (n && !n.value) n.focus(); }, reduceMotion ? 0 : 620);
-        }
-      }
-    });
-  });
 
   /* ---------------------------------------------------------------------
      Donation-lead form
@@ -244,12 +222,8 @@
     var lines = [];
     var labels = {
       name:    isEn ? "Name" : "שם",
-      email:   isEn ? "Email" : "אימייל",
       phone:   isEn ? "Phone" : "טלפון",
-      org:     isEn ? "Organisation" : "ארגון",
-      type:    isEn ? "Donor type" : "סוג התורם",
-      help:    isEn ? "Would like to help with" : "מעוניין/ת לעזור ב",
-      amount:  isEn ? "Amount in mind" : "סכום משוער",
+      email:   isEn ? "Email" : "אימייל",
       message: isEn ? "Message" : "הודעה"
     };
     Object.keys(labels).forEach(function (k) {
@@ -318,7 +292,6 @@
       }).then(function () {
         show("ok", t("ok"));
         form.reset();
-        $$("[data-tier]").forEach(function (tt) { tt.setAttribute("aria-pressed", "false"); });
       }).catch(function (err) {
         var detail = err && err.message
           ? ' <span style="opacity:.7">(' + String(err.message).slice(0, 120) + ")</span>"
@@ -331,9 +304,22 @@
   /* ---------------------------------------------------------------------
      Fill contact details from the config so they only live in one place.
      --------------------------------------------------------------------- */
+  function cfgValue(path) {
+    return path.split(".").reduce(function (o, k) { return o && o[k]; }, CFG);
+  }
+
+  /* Anything marked data-requires="some.config.path" is removed unless that
+     path holds a real value. Sections the troop hasn't filled in yet — the
+     video, the founding year, the US tax details — simply don't appear,
+     so an unverified claim can never reach the page. */
+  $$("[data-requires]").forEach(function (el) {
+    var v = cfgValue(el.getAttribute("data-requires"));
+    if (v === undefined || v === null || v === false || v === "") el.remove();
+  });
+
   $$("[data-cfg]").forEach(function (el) {
     var key = el.getAttribute("data-cfg");
-    var value = key.split(".").reduce(function (o, k) { return o && o[k]; }, CFG);
+    var value = cfgValue(key);
     if (value === undefined || value === null) return;
     if (el.tagName === "A") {
       var href = el.getAttribute("data-cfg-href");
@@ -357,6 +343,68 @@
       a.href = "https://wa.me/" + CFG.whatsapp;
     });
   }
+
+  /* ---------------------------------------------------------------------
+     Video — a click-to-play facade rather than a YouTube iframe on load.
+     The iframe pulls ~1MB and sets cookies before anyone has decided to
+     watch; a thumbnail costs a few KB. The real player is only inserted
+     once someone actually presses play.
+     --------------------------------------------------------------------- */
+  (function video() {
+    var mount = $("#video-mount");
+    if (!mount) return;                        // removed by data-requires
+    var raw = String(CFG.youtubeId || "").trim();
+    // Accept a bare ID or any of YouTube's URL shapes.
+    var m = raw.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([A-Za-z0-9_-]{6,})/);
+    var id = m ? m[1] : (/^[A-Za-z0-9_-]{6,}$/.test(raw) ? raw : null);
+    if (!id) { mount.remove(); return; }
+
+    var thumb = document.createElement("img");
+    thumb.src = "https://i.ytimg.com/vi/" + id + "/maxresdefault.jpg";
+    thumb.alt = "";
+    thumb.loading = "lazy";
+    // Not every upload has a maxres thumbnail; fall back rather than break.
+    thumb.addEventListener("error", function () {
+      thumb.src = "https://i.ytimg.com/vi/" + id + "/hqdefault.jpg";
+    }, { once: true });
+
+    var btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "video__play";
+    btn.setAttribute("aria-label", currentLang() === "en" ? "Play video" : "נגן סרטון");
+    btn.setAttribute("data-en-attr", "aria-label: Play video");
+    btn.innerHTML = '<svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">' +
+                    '<path d="M8 5.5v13l11-6.5z" fill="currentColor"/></svg>';
+
+    btn.addEventListener("click", function () {
+      var frame = document.createElement("iframe");
+      frame.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0";
+      frame.title = currentLang() === "en" ? "Sea Scouts of Bat Yam" : "צופי ים בת ים";
+      frame.allow = "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture";
+      frame.allowFullscreen = true;
+      frame.setAttribute("frameborder", "0");
+      mount.replaceChildren(frame);
+    });
+
+    mount.replaceChildren(thumb, btn);
+  })();
+
+  /* ---------------------------------------------------------------------
+     Personalised links. The page is sent one-to-one, so ?to=דוד opens with
+     a line addressed to that person. Written with textContent, never
+     innerHTML — the value comes from a URL anyone can edit.
+     --------------------------------------------------------------------- */
+  (function greeting() {
+    var host = $("#greeting");
+    if (!host) return;
+    var name = "";
+    try {
+      name = (new URLSearchParams(location.search).get("to") || "").trim();
+    } catch (e) { /* very old browser */ }
+    if (!name || name.length > 40) { host.remove(); return; }
+    $$("[data-greet-name]", host).forEach(function (el) { el.textContent = name; });
+    host.hidden = false;
+  })();
 
   /* Current year in the footer (both language copies). */
   var thisYear = String(new Date().getFullYear());

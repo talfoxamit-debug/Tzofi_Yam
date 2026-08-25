@@ -66,7 +66,53 @@ window.SITE_CONFIG = {
   instagram: "https://www.instagram.com/yam_bat_yam",
 
   /* --------------------------------------------------------------------
-     3. CAMPAIGN NUMBERS — מספרי הקמפיין
+     3. VIDEO  ·  סרטון
+
+     Paste the YouTube video ID — the part after "v=" in the URL.
+     From https://www.youtube.com/watch?v=dQw4w9WgXcQ  →  "dQw4w9WgXcQ"
+     A full YouTube URL works too.
+
+     While this is null the whole video section stays hidden.
+     -------------------------------------------------------------------- */
+  youtubeId: null,
+
+  /* --------------------------------------------------------------------
+     4. TRUST  ·  אמון
+
+     This is the section a serious donor actually reads. Every field here
+     is optional — anything left null simply doesn't appear, so nothing
+     unverified ever goes on the page.
+
+     IMPORTANT: tax-deductibility is a legal claim. Do not switch these on
+     until someone at the movement has confirmed the exact wording. See
+     docs/materials-request.md for the questions to ask.
+     -------------------------------------------------------------------- */
+  trust: {
+    /* Year the troop was founded, e.g. 1965. Shows as "פועלים מאז 1965". */
+    foundedYear: null,
+
+    /* Israel: set true once confirmed that receipts are issued through
+       תנועת הצופים. Fill amuta/section46 only if you have the real values. */
+    receiptsIsrael: true,
+    amutaNumber: null,
+    section46: false,
+
+    /* USA: set true ONLY after confirming that the US entity accepts a
+       donation earmarked for this troop — not merely that it exists.
+       Friends of Israel Scouts, Inc. (EIN 13-3843506) is the North American
+       arm of Tzofim and is the likely route, but its published programming
+       is North American chapters, so earmarking must be verified first. */
+    receiptsUSA: false,
+    usEntity: null,
+    usEin: null
+  },
+
+  /* Optional link to the PDF deck, if you want the site to carry it too.
+     Drop the file in and point at it, e.g. "assets/tzofei-yam-deck.pdf". */
+  deckUrl: null,
+
+  /* --------------------------------------------------------------------
+     5. CAMPAIGN NUMBERS — מספרי הקמפיין
         Straight from the troop's own presentation. Change the amounts here
         and the budget bars, totals and giving levels all follow.
      -------------------------------------------------------------------- */

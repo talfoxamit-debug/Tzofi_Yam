@@ -5,39 +5,77 @@ it works as it stands — but each one closes a gap.
 
 ---
 
-## 1. Turn on Formspree  ·  ~5 minutes
+## 1. Get the credibility material  ·  biggest single win
 
-The donation-lead form is fully wired and tested. It needs one value pasted in.
+The site now has a Transparency section and space for testimonials, but the
+content has to come from the movement. `docs/materials-request.md` is a
+ready-to-send Hebrew message asking for exactly what's missing — founding year,
+testimonials, tax-receipt details, safety credentials, letters of support.
 
-Until this is done, submitting the form opens the visitor's own email client
-with the details pre-filled. That works, but you get no record you can track.
+- [ ] Send the message in `docs/materials-request.md`
+- [ ] Fill in what comes back (see items 2–4 below)
+
+---
+
+## 2. Paste the YouTube video ID
+
+The video section is built and stays completely hidden until this is set.
+
+- [ ] In `assets/js/config.js`, set `youtubeId` to the ID from your URL:
+      `https://youtube.com/watch?v=`**`dQw4w9WgXcQ`** ← just that part
+      (a full URL works too)
+
+---
+
+## 3. Confirm the tax-receipt wording  ·  do NOT guess here
+
+This is a legal claim on a public page, so the site ships with the US half
+switched **off** until you confirm it.
+
+- [ ] **Israel** — confirm receipts are issued through תנועת הצופים. If there's
+      a סעיף 46 approval, set `trust.section46: true`
+- [ ] **USA** — the likely route is *Friends of Israel Scouts, Inc.*
+      (EIN 13-3843506), the North American arm of Tzofim. **But its published
+      programming is North American chapters**, so before switching this on you
+      must confirm: *does it accept a donation earmarked for our troop, or does
+      the money go into a general fund?* The answer changes how you approach
+      every overseas donor.
+- [ ] Only once confirmed, set `trust.receiptsUSA: true`
+
+---
+
+## 4. Add the founding year
+
+- [ ] Set `trust.foundedYear` in `assets/js/config.js`. The line
+      "פועלים בבת ים מאז ____" appears automatically once it's filled in.
+
+---
+
+## 5. Turn on Formspree  ·  ~5 minutes
+
+The form is wired and tested. It needs one value pasted in.
+
+Until this is done, submitting opens the visitor's own email client with the
+details pre-filled. That works, but you get no record you can track.
 
 - [ ] Sign up at [formspree.io](https://formspree.io) with `yam.bat-yam@zofim.org.il`
-      (free plan is enough to start)
 - [ ] Create a form — name it something recognisable, e.g. *תרומות – אתר*
-- [ ] Copy the form ID from the endpoint it shows you:
-      `https://formspree.io/f/`**`mabcdefg`** ← just the last part
-- [ ] Paste it into `assets/js/config.js`:
+- [ ] Copy the form ID: `https://formspree.io/f/`**`mabcdefg`** ← just the last part
+- [ ] Paste into `assets/js/config.js`:
 
       formspreeId: "mabcdefg",
 
 - [ ] Deploy, then **submit the form once from the live site**
-- [ ] **Click the confirmation link Formspree emails you.** This step is the one
-      people skip — until you click it, submissions are accepted but nothing is
-      ever delivered.
+- [ ] **Click the confirmation link Formspree emails you.** This is the step
+      people skip — until you click it, submissions are accepted but never
+      delivered.
 
-Pasting the full `https://formspree.io/f/mabcdefg` URL instead of just the ID
-also works; the code accepts either.
-
-**Watch the ceiling:** the free plan allows 50 submissions per month, and past
-that Formspree *rejects* leads rather than queueing them. If the page ever gets
-pushed to a mailing list or WhatsApp groups, upgrade before the send, not after.
-
-Full details, error-message table and CSV export notes: see README.md.
+**Watch the ceiling:** the free plan allows 50 submissions/month and *rejects*
+leads past that rather than queueing them.
 
 ---
 
-## 2. Confirm photo permissions  ·  before sharing publicly
+## 6. Confirm photo permissions  ·  before sharing publicly
 
 Every photograph on the site shows identifiable minors.
 
@@ -46,20 +84,7 @@ Every photograph on the site shows identifiable minors.
 
 ---
 
-## 3. Decide what to say about tax receipts  ·  affects giving directly
-
-The site currently says *"צרו קשר לגבי קבלה וזיכוי מס"* — deliberately vague,
-because the troop's status wasn't verified.
-
-- [ ] Establish: is there a registered עמותה? Does תנועת הצופים issue the
-      receipts? Is there a סעיף 46 approval?
-- [ ] If recognised receipts *are* available, say so explicitly on the page.
-      This is one of the first things a serious donor checks, and a clear
-      answer measurably increases giving.
-
----
-
-## 4. Check the contact details are current
+## 7. Check the contact details are current
 
 Taken from the troop's public listing on zofim.org.il.
 
@@ -70,7 +95,7 @@ Taken from the troop's public listing on zofim.org.il.
 
 ---
 
-## 5. When there's a real domain
+## 8. When there's a real domain
 
 Link previews in WhatsApp, Facebook and email need **absolute** URLs — a
 relative path produces no preview image at all. Since the site is mostly shared
@@ -83,7 +108,7 @@ as a link, this matters more than it looks.
 
 ---
 
-## 6. Accessibility statement  ·  legal requirement in Israel
+## 9. Accessibility statement  ·  legal requirement in Israel
 
 The page is built to be keyboard- and screen-reader-friendly, but the formal
 statement (הצהרת נגישות) is a legal document, not a technical one.

@@ -107,6 +107,55 @@ Basin, or your own server.
 
 ---
 
+## Sending the link to a specific person
+
+The site is built to be sent one-to-one rather than found through search, so it
+supports **personalised links**. Add `?to=` and a name:
+
+```
+https://your-domain.org/?to=דוד
+https://your-domain.org/?to=David
+```
+
+The page then opens with *"דוד — הנה הסקירה שדיברנו עליה"* above the headline.
+Leave the parameter off and nothing appears. The name is inserted as text, never
+as markup, so a pasted `<script>` renders harmlessly as characters.
+
+Two things worth knowing when the link is your main distribution:
+
+- **The preview card is the first impression.** A real share of recipients only
+  ever see the WhatsApp/email preview. It needs the absolute `og:image` URL from
+  the deploy checklist below — a relative path produces no image at all.
+- **There is deliberately no donation button.** The page's job is to establish
+  who you are before a conversation, not to close a transaction. The closing ask
+  is an invitation to come and watch a launch, which converts far better than a
+  form for someone who already knows you.
+
+---
+
+## Sections that appear only when you fill them in
+
+Anything marked `data-requires="some.config.path"` is removed from the page
+unless that config value is set. This means an unverified claim can never reach
+the page by accident, and the site improves as material arrives rather than
+needing a rebuild.
+
+| Config key | Controls |
+| --- | --- |
+| `youtubeId` | The whole video section |
+| `trust.foundedYear` | The "running since ____" line |
+| `trust.receiptsIsrael` | The receipts & tax card |
+| `trust.section46` | The Section 46 line inside it |
+| `trust.receiptsUSA` | The US 501(c)(3) line |
+| `deckUrl` | The "full deck (PDF)" button |
+
+**On the tax fields specifically:** tax-deductibility is a legal claim. The US
+half ships switched off. See `todo.md` item 3 for what to confirm first — in
+particular whether the US entity accepts donations *earmarked for this troop*,
+which is a different question from whether it exists.
+
+---
+
 ## Deploying
 
 The site is static, so any host works.
